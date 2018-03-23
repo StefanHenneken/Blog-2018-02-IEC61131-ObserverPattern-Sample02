@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.10">
+  <POU Name="FB_SubjectNew" Id="{02cbaef6-009b-4e16-a3e9-0a9408536e35}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FB_SubjectNew EXTENDS FB_Base IMPLEMENTS I_Subject
+VAR
+	fbDelay				: TON;
+	fbDrand				: DRAND;
+	fValue				: LREAL;
+	fbSubjectBase		: FB_SubjectBase;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// creates every sec a random value and invoke the update method
+fbDelay(IN := TRUE, PT := T#500MS);
+IF (fbDelay.Q) THEN	
+	fbDelay(IN := FALSE);
+	fbDrand(SEED := TO_INT(ADR(fValue)));
+	fValue := fbDrand.Num * 1.0;
+	THIS^.Notify();
+END_IF
+]]></ST>
+    </Implementation>
+    <Method Name="Attach" Id="{e41e34e6-7327-467e-aa5c-96bda1aafde4}">
+      <Declaration><![CDATA[METHOD PUBLIC Attach : BOOL
+VAR_INPUT
+	ipObserver				: I_Observer;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Attach := FALSE;
+IF (THIS^.fbSubjectBase.Attach(ipObserver)) THEN
+	ipObserver.Update(THIS^.fValue);
+	Attach := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Detach" Id="{8e131d16-7352-4f70-badb-52803a6e195e}">
+      <Declaration><![CDATA[METHOD PUBLIC Detach : BOOL
+VAR_INPUT
+	ipObserver		: I_Observer;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Detach := THIS^.fbSubjectBase.Detach(ipObserver);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="fActualValue" Id="{eff8a6a5-e699-4aa2-ab1d-31af949b37ae}">
+      <Declaration><![CDATA[{attribute 'monitoring':='call'}
+PROPERTY PUBLIC fActualValue : LREAL]]></Declaration>
+      <Get Name="Get" Id="{9c23695c-45ab-4175-83e8-5fd7d75c008f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fActualValue := THIS^.fValue;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Notify" Id="{73845a56-27bf-4b99-8966-8d5dd109eb49}">
+      <Declaration><![CDATA[METHOD PRIVATE Notify
+VAR	
+	nIndex		: INT := 0;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR nIndex := 1 TO Param.cMaxObservers DO
+	IF (THIS^.fbSubjectBase.aObservers[nIndex] <> 0) THEN
+		THIS^.fbSubjectBase.aObservers[nIndex].Update(THIS^.fActualValue);
+	END_IF
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_SubjectNew">
+      <LineId Id="14" Count="6" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="21" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SubjectNew.Attach">
+      <LineId Id="20" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="14" Count="1" />
+    </LineIds>
+    <LineIds Name="FB_SubjectNew.Detach">
+      <LineId Id="7" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SubjectNew.fActualValue.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SubjectNew.Notify">
+      <LineId Id="9" Count="3" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

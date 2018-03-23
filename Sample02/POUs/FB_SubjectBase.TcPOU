@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.10">
+  <POU Name="FB_SubjectBase" Id="{1555c4fa-9f19-4104-9eaa-bc0df5e50c20}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FB_SubjectBase IMPLEMENTS I_Subject
+VAR
+	aObservers			: ARRAY [1..Param.cMaxObservers] OF I_Observer;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Attach" Id="{f06878e3-4aca-4636-a252-4cd39b77b47d}">
+      <Declaration><![CDATA[METHOD PUBLIC Attach : BOOL
+VAR_INPUT
+	ipObserver				: I_Observer;
+END_VAR
+VAR
+	nIndex					: INT := 0;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Attach := FALSE;
+IF (ipObserver = 0) THEN
+	RETURN;
+END_IF
+
+// is the observer already registered?
+FOR nIndex := 1 TO Param.cMaxObservers DO	
+	IF (THIS^.aObservers[nIndex] = ipObserver) THEN
+		RETURN;
+	END_IF
+END_FOR
+
+// save the observer object into the array of observers and send the actual value
+FOR nIndex := 1 TO Param.cMaxObservers DO
+	IF (THIS^.aObservers[nIndex] = 0) THEN
+		THIS^.aObservers[nIndex] := ipObserver;
+		Attach := TRUE;
+		EXIT;					
+	END_IF
+END_FOR
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Detach" Id="{2c62a29a-ed94-4578-afe6-e2c2a1804903}">
+      <Declaration><![CDATA[METHOD PUBLIC Detach : BOOL
+VAR_INPUT
+	ipObserver		: I_Observer;
+END_VAR
+VAR
+	nIndex			: INT := 0;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Detach := FALSE;
+IF (ipObserver = 0) THEN
+	RETURN;
+END_IF
+
+FOR nIndex := 1 TO Param.cMaxObservers DO
+	IF (THIS^.aObservers[nIndex] = ipObserver) THEN
+		THIS^.aObservers[nIndex] := 0;
+		Detach := TRUE;	
+	END_IF
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_SubjectBase">
+      <LineId Id="47" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SubjectBase.Attach">
+      <LineId Id="90" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="104" Count="1" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="117" Count="0" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="115" Count="1" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="84" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SubjectBase.Detach">
+      <LineId Id="19" Count="0" />
+      <LineId Id="48" Count="2" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="33" Count="1" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.10">
+  <POU Name="FB_Observer" Id="{c2f07dc9-2028-42d5-bdcb-a6253ab74410}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FB_Observer IMPLEMENTS I_Observer
+VAR
+	fValue				: LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="fActualValue" Id="{f671e0f9-25f6-47ac-a38a-ee6697f9367c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC fActualValue : LREAL]]></Declaration>
+      <Get Name="Get" Id="{4ec82d87-f4c6-4d3d-bfce-1210b040861c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fActualValue := THIS^.fValue;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{a3fc2fe7-b922-4dd5-aa75-b531f9951d99}">
+      <Declaration><![CDATA[METHOD PUBLIC Update
+VAR_INPUT
+	fValue			: LREAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.fValue := fValue;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Observer">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Observer.fActualValue.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Observer.Update">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
