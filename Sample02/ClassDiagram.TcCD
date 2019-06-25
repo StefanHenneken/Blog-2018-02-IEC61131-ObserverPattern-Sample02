@@ -129,25 +129,6 @@
               <v n="PropertyID">-1</v>
               <v n="MethodsLoaded">false</v>
               <d n="MethodList" t="Hashtable" ckt="Guid" cvt="UMLElementMethod">
-                <v>4393bf18-6fd0-421d-a34a-3458d26e55fe</v>
-                <o>
-                  <v n="MethodName">"Detach"</v>
-                  <v n="MethodBreakPointActive">false</v>
-                  <v n="MethodReturnType">"BOOL"</v>
-                  <l n="MethodParameter" t="ArrayList" cet="UMLMethodParameter">
-                    <o>
-                      <v n="ParameterName">"ipObserver"</v>
-                      <v n="ParameterType">"I_Observer"</v>
-                      <v n="ParameterParent">{4393bf18-6fd0-421d-a34a-3458d26e55fe}</v>
-                      <v n="ParameterTransfer">"in"</v>
-                    </o>
-                  </l>
-                  <v n="MethodParent">{6890b304-c5dc-46c3-9482-198f619d2f56}</v>
-                  <v n="MethodObjectGuid">{4393bf18-6fd0-421d-a34a-3458d26e55fe}</v>
-                  <v n="MethodStereotype">""</v>
-                  <v n="MethodParameterLength">20</v>
-                  <v n="MethodParameterTooLong">true</v>
-                </o>
                 <v>62711a66-5623-4145-ad91-ad84aea7c33f</v>
                 <o>
                   <v n="MethodName">"Attach"</v>
@@ -163,6 +144,25 @@
                   </l>
                   <v n="MethodParent">{6890b304-c5dc-46c3-9482-198f619d2f56}</v>
                   <v n="MethodObjectGuid">{62711a66-5623-4145-ad91-ad84aea7c33f}</v>
+                  <v n="MethodStereotype">""</v>
+                  <v n="MethodParameterLength">20</v>
+                  <v n="MethodParameterTooLong">true</v>
+                </o>
+                <v>4393bf18-6fd0-421d-a34a-3458d26e55fe</v>
+                <o>
+                  <v n="MethodName">"Detach"</v>
+                  <v n="MethodBreakPointActive">false</v>
+                  <v n="MethodReturnType">"BOOL"</v>
+                  <l n="MethodParameter" t="ArrayList" cet="UMLMethodParameter">
+                    <o>
+                      <v n="ParameterName">"ipObserver"</v>
+                      <v n="ParameterType">"I_Observer"</v>
+                      <v n="ParameterParent">{4393bf18-6fd0-421d-a34a-3458d26e55fe}</v>
+                      <v n="ParameterTransfer">"in"</v>
+                    </o>
+                  </l>
+                  <v n="MethodParent">{6890b304-c5dc-46c3-9482-198f619d2f56}</v>
+                  <v n="MethodObjectGuid">{4393bf18-6fd0-421d-a34a-3458d26e55fe}</v>
                   <v n="MethodStereotype">""</v>
                   <v n="MethodParameterLength">20</v>
                   <v n="MethodParameterTooLong">true</v>
